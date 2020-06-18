@@ -21,5 +21,4 @@ from django.urls import include, path
 urlpatterns = [
     path('conversion/', include('conversion.urls')),
     path('admin/', admin.site.urls),
-    # path('identity/', views.getResponse, name='getResponse'),
 ]

@@ -1,23 +1,28 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+class Identity(APIView):
 
-# Create your views here.
+    def get(self, request):
+        GETResponse = {
+            'server_name': 'Suyash Ghuge'
+        }
+        return Response(GETResponse, status=status.HTTP_200_OK)
 
-def getResponse(request):
-    GETResponse = {
-        'server_name': 'Suyash Ghuge'
-    }
-    return JsonResponse(GETResponse)
+    
 
-def postResponse(request):
-    number = request.POST.get('value')
-    POSTResponse = {
-        'server_name': number
-    }
-    return JsonResponse(POSTResponse)
+class Convert(APIView):
 
-
-# def check(request):
-#     return HttpResponse("checked")
+    def post(self, request):
+        val = request.data['value']
+        GETResponse = {
+            'server_name': val
+        }
+        val = int(val)
+        if val < 0:
+            content = {"Value should be greater than 0"}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+        return Response(GETResponse, status=status.HTTP_200_OK)
+     
