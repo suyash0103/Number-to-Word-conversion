@@ -25,7 +25,9 @@ SECRET_KEY = '%7oi%_ye-^6%)iz_okk$kf^a1sxjgx9&_b7%oovnaz*y@mz4xq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+# STATIC_ROOT = os.path.join(BASE_DIR, ‘staticfiles’)
 
 
 # Application definition
@@ -130,4 +132,9 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = ( 'localhost:8080', )
 
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
