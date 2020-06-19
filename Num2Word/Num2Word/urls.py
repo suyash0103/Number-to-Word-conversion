@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-# import sys
-# sys.path.insert(0, '/conversion/views.py')
 
 urlpatterns = [
+    # URL for base address 'conversion
     path('conversion/', include('conversion.urls')),
+
+    # URL for Django admin
     path('admin/', admin.site.urls),
 ]

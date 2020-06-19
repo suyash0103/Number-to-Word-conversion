@@ -7,9 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
+    # URL for /identity
     path('identity', (views.Identity.as_view()), name='identity'),
-    path('convert', (views.Convert.as_view()), name='convert'),
 
-    # path('ch', views.check, name='check'),
+    #URL for /convert
+    path('convert', (views.Convert.as_view()), name='convert'),
 ]
 
