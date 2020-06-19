@@ -1,1 +1,0 @@
-web: gunicorn Num2Word.wsgi —-log-file -

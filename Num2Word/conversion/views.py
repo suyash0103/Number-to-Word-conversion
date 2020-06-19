@@ -40,7 +40,7 @@ class Identity(APIView):
         return Response(responseContent, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-
+# Functioning of /convert endpoint
 class Convert(APIView):
 
     # List to maintain words of numbers from 1 to 19
@@ -66,7 +66,7 @@ class Convert(APIView):
     
         words = ""
 
-        # We should include the word 'hundred' only when hundreds digit is not 0
+        # We should include the word 'hundred' only when digit at hundreds place is not 0
         if hundreds_place != 0:
             # If tens place is greater than 1, it means the 2 digit number starting from tens place is more than 19, hence use both twenties and ones list
             if tens_place > 1:
@@ -120,11 +120,16 @@ class Convert(APIView):
 
 
     def post(self, request):
-        # Check if the request body has a number or not
+        # Check for request body being NULL and check if number in request body is a valid number
         try:
-            numberInString = request.data['value']
+            numberInString = str(request.data['value'])
         except:
-            responseContent = {"No number obtained to convert into words"}
+            responseContent = {"No valid number obtained to convert into words"}
+            return Response(responseContent, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if the value passed is not an Integer
+        if type(request.data['value']) != int:
+            responseContent = {"Integer should be passed in request body"}
             return Response(responseContent, status=status.HTTP_400_BAD_REQUEST)
         
         # Check if the value in request body is empty or not
@@ -146,14 +151,14 @@ class Convert(APIView):
 
         # Return the word 'zero' if the value in request body equals 0
         elif numberInInt == 0:
-            responseContent = {"value" : numberInInt, "value_in_words" : "zero", "len" : len(numberInString)}
+            responseContent = {"value" : numberInInt, "value_in_words" : "zero"}
             return Response(responseContent, status=status.HTTP_200_OK)
 
         # Call above two helper functions to convert number into words
         else:            
             numberToWords = self.convertNumber(numberInString)
 
-            responseContent = {"value" : numberInInt, "value_in_words" : numberToWords, "len" : len(numberInString)}
+            responseContent = {"value" : numberInInt, "value_in_words" : numberToWords}
             return Response(responseContent, status=status.HTTP_200_OK)
 
     # Request type GET
